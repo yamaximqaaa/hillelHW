@@ -58,8 +58,8 @@ internal class Program
                     Id = person.Id,
                     Name = person.Name
                 }));
-        var penultimateValue = personsList.Where(person => person == personsList[personsList.Count - 2]);
-        penultimateValue.PrintPersonList();
+        
+        personsList.OrderBy(x => x.Name).PrintPersonList().GetPenultimateValue().PrintPersonList();
         
         #endregion
         
@@ -82,7 +82,7 @@ public record Person(Guid Id, string Name, int Age);
 
 public static class ListExtention
 {
-    public static void PrintPersonList(this IEnumerable<Person> personsList)
+    public static IEnumerable<Person> PrintPersonList(this IEnumerable<Person> personsList)
     {
         var table = new ConsoleTable("Id", "Name", "Age");
         foreach (var person in personsList)
@@ -90,5 +90,11 @@ public static class ListExtention
             table.AddRow(person.Id, person.Name, person.Age);
         }
         table.Write();
+        return personsList;
+    }
+
+    public static IEnumerable<T> GetPenultimateValue<T>(this IEnumerable<T> list) where T: class
+    {
+        return list.Where(person => person == list.ElementAt(list.Count() - 2));
     }
 }
