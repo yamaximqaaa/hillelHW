@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HW2", "HW2\HW2.csproj", "{0
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HW3", "HW3\HW3.csproj", "{11472D19-E903-4C6E-9D53-2673CB15D1A1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HW4_LINQ", "HW4_LINQ\HW4_LINQ.csproj", "{7726C9DE-39B5-4108-8D30-AEE14AF6C2B5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{11472D19-E903-4C6E-9D53-2673CB15D1A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{11472D19-E903-4C6E-9D53-2673CB15D1A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{11472D19-E903-4C6E-9D53-2673CB15D1A1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7726C9DE-39B5-4108-8D30-AEE14AF6C2B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7726C9DE-39B5-4108-8D30-AEE14AF6C2B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7726C9DE-39B5-4108-8D30-AEE14AF6C2B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7726C9DE-39B5-4108-8D30-AEE14AF6C2B5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
