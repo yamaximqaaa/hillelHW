@@ -7,26 +7,26 @@ internal class Program
 {
     public static void Main(string[] args)
     {
-        // #region numbers1-100
-        //
-        // {
-        //     List<int> intsList = new List<int>(Enumerable.Range(1, 100));
-        //
-        //     Console.WriteLine("All values:");
-        //     PrintList(intsList);
-        //
-        //     Console.WriteLine("Odd values:");
-        //     PrintList(intsList.Where((x) => x % 2 != 0 ));
-        //
-        //     Console.WriteLine("Odd values in pow2:");
-        //     var listInPow = intsList.Select(x => Math.Pow(x, 2)).Where((x) => x % 2 != 0);
-        //     PrintList(listInPow);
-        //
-        //     Console.WriteLine("Odd values in pow2 sum:");
-        //     Console.WriteLine(listInPow.Sum());
-        // }
-        //
-        // #endregion
+        #region numbers1-100
+        
+        {
+            List<int> intsList = new List<int>(Enumerable.Range(1, 100));
+        
+            Console.WriteLine("All values:");
+            PrintList(intsList);
+        
+            Console.WriteLine("Odd values:");
+            PrintList(intsList.Where((x) => x % 2 != 0 ));
+        
+            Console.WriteLine("Odd values in pow2:");
+            var listInPow = intsList.Select(x => Math.Pow(x, 2)).Where((x) => x % 2 != 0);
+            PrintList(listInPow);
+        
+            Console.WriteLine("Odd values in pow2 sum:");
+            Console.WriteLine(listInPow.Sum());
+        }
+        
+        #endregion
 
         #region person
 
