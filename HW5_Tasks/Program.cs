@@ -24,10 +24,14 @@ internal class Program
         var file = await FileHelper.CreateFile().CreateData(100);
         var file2 = await FileHelper.CreateFile().CreateData(100);
         var file3 = await FileHelper.CreateFile().CreateData(100);
+        var file4 = await FileHelper.CreateFile().CreateData(100);
+        var file5 = await FileHelper.CreateFile().CreateData(100);
 
         await file.ReadMyFileAsync(actionWithFileData);
         await file2.ReadMyFileAsync(actionWithFileData);
         await file3.ReadMyFileAsync(actionWithFileData);
+        await file4.ReadMyFileAsync(actionWithFileData);
+        await file5.ReadMyFileAsync(actionWithFileData);
         
 
         
