@@ -58,23 +58,42 @@ public static class FileHelper
 
     #region ReadFile
 
-    public static async Task<FileObject> ReadMyFileAsync(this FileObject file, Action<string, FileObject> doAction)
+    public static async Task<FileObject> ReadMyFileAsync(this FileObject file, Action<string> doAction, CancellationToken token)
     {
         using (StreamReader reader = new StreamReader(file.Path))
         {
             while (!reader.EndOfStream)
             {
-                doAction(await reader.ReadLineAsync(), file);
+                if (!token.IsCancellationRequested)
+                    doAction(await reader.ReadLineAsync() ?? throw new InvalidOperationException());
+                else
+                    return file;
             }
         }
         return file;
     }
 
-    public static async Task<FileObject> ReadMyFileAsync(this FileObject file)
+    public static async Task<FileObject> ReadMyFileAsync(this FileObject file, Action<string> doAction)
     {
-        ReadMyFileAsync(file, (s, file) => Console.WriteLine(s));
+        await ReadMyFileAsync(file, doAction, default);
         return file;
     }
+
+    public static async Task<FileObject> ReadMyFileAsync(this FileObject file)
+    {
+        await ReadMyFileAsync(file, (s) => Console.WriteLine(s));
+        return file;
+    }
+
+    #endregion
+
+    #region DeleteFile
+
+    public static void DeleteFile(this FileObject file)
+    {
+        File.Delete(file.Path);
+    }
+
 
     #endregion
     
