@@ -25,15 +25,15 @@ public class UsersController : ControllerBase
 
     #region Create
 
-    [HttpPost("create/")]
-    public Guid CreateNewUser([FromQuery]string name, [FromQuery]string login)
+    [HttpPost]
+    public Guid CreateNewUser([FromBody]User user)
     {
         var id = Guid.NewGuid();
         _users.Add(new UserModel()
         {
             Id = id,
-            Name = name,
-            Login = login
+            Name = user.Name,
+            Login = user.Login
         });
         return id;
     }
@@ -48,8 +48,8 @@ public class UsersController : ControllerBase
         return _users.ToArray();
     }
     
-    [HttpPost("{id}")]
-    public UserModel? GetUserModelById(Guid id)
+    [HttpGet("{id}")]
+    public UserModel? GetUserModelById([FromRoute]Guid id)
     {
         return _users.Find((x) => x.Id == id);
     }
@@ -58,7 +58,7 @@ public class UsersController : ControllerBase
 
     #region Update
 
-    [HttpPut("update/{id}")]
+    [HttpPut("{id}")]
     public UserModel? UpdateUserModelById(Guid id, [FromQuery]string name, [FromQuery]string login)
     {
         var userIndex = _users.FindIndex((x) => x.Id == id);
@@ -72,7 +72,7 @@ public class UsersController : ControllerBase
 
     #region Delete
 
-    [HttpDelete("delete/{id}")]
+    [HttpDelete]
     public bool DeleteById([FromRoute] Guid id)
     {
         return _users.Remove(_users.Find((x) => x.Id == id));

@@ -6,3 +6,5 @@ public class UserModel
     public string? Name { get; set; }
     public string? Login { get; set; }
 }
+
+public record User(string Name, string Login);
