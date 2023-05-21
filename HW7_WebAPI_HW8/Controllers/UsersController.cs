@@ -26,7 +26,7 @@ public class UsersController : ControllerBase
     #region Create
 
     [HttpPost]
-    public Guid CreateNewUser([FromBody]User user)
+    public ActionResult<Guid> CreateNewUser([FromBody]User user)
     {
         var id = Guid.NewGuid();
         _users.Add(new UserModel()
@@ -35,7 +35,7 @@ public class UsersController : ControllerBase
             Name = user.Name,
             Login = user.Login
         });
-        return id;
+        return Ok(id);
     }
 
     #endregion
@@ -43,15 +43,17 @@ public class UsersController : ControllerBase
     #region Read
 
     [HttpGet]
-    public IEnumerable<UserModel?> GetUsers()
+    public ActionResult GetUsers()
     {
-        return _users.ToArray();
+        return Ok(_users.ToArray());
     }
     
     [HttpGet("{id}")]
-    public UserModel? GetUserModelById([FromRoute]Guid id)
+    public ActionResult<UserModel?> GetUserModelById([FromRoute]Guid id)
     {
-        return _users.Find((x) => x.Id == id);
+        var user = _users.FirstOrDefault((x) => x?.Id == id);
+        if (user == null) return BadRequest(user);
+        return Ok(user);
     }
 
     #endregion
@@ -59,23 +61,25 @@ public class UsersController : ControllerBase
     #region Update
 
     [HttpPut("{id}")]
-    public UserModel? UpdateUserModelById(Guid id, [FromQuery]string name, [FromQuery]string login)
+    public ActionResult<UserModel?> UpdateUserModelById(Guid id, [FromQuery]string name, [FromQuery]string login)
     {
-        var userIndex = _users.FindIndex((x) => x.Id == id);
-        if (userIndex == -1) return null;
-        _users[userIndex].Name = name;
-        _users[userIndex].Login = login;
-        return _users[userIndex];
+        var userIndex = _users.FindIndex((x) => x?.Id == id);
+        if (userIndex == -1) return StatusCode(418, new {ErrorMessage = "No such object"});
+        _users[userIndex]!.Name = name;
+        _users[userIndex]!.Login = login;
+        return Ok(_users[userIndex]);
     }
 
     #endregion
 
     #region Delete
 
-    [HttpDelete]
-    public bool DeleteById([FromRoute] Guid id)
+    [HttpDelete("{id}")]
+    public ActionResult<bool> DeleteById([FromRoute] Guid id)
     {
-        return _users.Remove(_users.Find((x) => x.Id == id));
+        var result = _users.Remove(_users.Find((x) => x.Id == id));
+        if (result == false) return BadRequest(result);
+        return Ok(result);
     }
 
     #endregion
